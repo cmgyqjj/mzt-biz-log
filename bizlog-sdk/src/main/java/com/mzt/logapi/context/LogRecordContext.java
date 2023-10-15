@@ -13,6 +13,8 @@ import java.util.Map;
  */
 public class LogRecordContext {
 
+//    InheritableThreadLocal是ThreadLocal的子类，比ThreadLocal优秀一点就是可以进行主子线程间ThreadLocalMap上下文拷贝。
+//    TODO 搜一下具体的实现原理，然后写文档
     private static final InheritableThreadLocal<Deque<Map<String, Object>>> VARIABLE_MAP_STACK = new InheritableThreadLocal<>();
 
     private static final InheritableThreadLocal<Map<String, Object>> GLOBAL_VARIABLE_MAP = new InheritableThreadLocal<>();

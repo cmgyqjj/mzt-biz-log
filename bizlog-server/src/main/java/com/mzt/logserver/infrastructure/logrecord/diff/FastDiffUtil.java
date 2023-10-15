@@ -19,10 +19,14 @@ public class FastDiffUtil {
     public static void main(String[] args) throws Exception {
         Order order1 = getOrder1();
         Order order2 = getOrder2();
-        //annotationDiffUtil(order1, order2);
+//        annotationDiffUtil(order1, order2);
         diffObject(order1, order2);
     }
 
+    /**
+     * @Author: qjj
+     * @Description: 这个案例表现了
+     */
 
     private static void diffObject(Order order1, Order order2) {
         DiffNode diffNode = ObjectDifferBuilder.buildDefault().compare(order1, order2);

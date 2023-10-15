@@ -14,6 +14,12 @@ public interface ILogRecordService {
     void record(LogRecord logRecord);
 
     /**
+     * @Author: qjj
+     * @Description: 依据操作日志类型和业务标识查询日志
+     * @Params:
+     * @Return
+     */
+    /**
      * 返回最多100条记录
      *
      * @param type  操作日志类型
@@ -22,6 +28,10 @@ public interface ILogRecordService {
      */
     List<LogRecord> queryLog(String bizNo, String type);
 
+    /**
+     * @Author: qjj
+     * @Description: 依据操作日志类型+子类型和业务标识查询日志
+     */
     /**
      * 返回最多100条记录
      *

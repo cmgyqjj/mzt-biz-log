@@ -1,5 +1,10 @@
 package com.mzt.logapi.service;
 
+
+/**
+ * @Author: qjj
+ * @Description: 自定义函数接口
+ */
 public interface IParseFunction {
 
     default boolean executeBefore() {

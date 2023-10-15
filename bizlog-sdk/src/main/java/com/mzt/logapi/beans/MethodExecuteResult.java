@@ -7,6 +7,11 @@ import java.lang.reflect.Method;
 /**
  * @author wulang
  **/
+/**
+ * @Author: qjj
+ * @Description: 方法执行结果和异常信息
+ */
+
 @Getter
 public class MethodExecuteResult {
     private boolean success;

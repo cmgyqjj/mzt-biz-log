@@ -17,6 +17,10 @@ import java.util.Map;
 public class ParseFunctionFactory {
     private Map<String, IParseFunction> allFunctionMap;
 
+    /**
+     * @Author: qjj
+     * @Description: 把传入的接口实现都里面的东西都放到map里面
+     */
     public ParseFunctionFactory(List<IParseFunction> parseFunctions) {
         if (CollectionUtils.isEmpty(parseFunctions)) {
             return;
@@ -30,10 +34,12 @@ public class ParseFunctionFactory {
         }
     }
 
+//    根据函数名获取函数
     public IParseFunction getFunction(String functionName) {
         return allFunctionMap.get(functionName);
     }
 
+//    判断是否在还在函数执行之前
     public boolean isBeforeFunction(String functionName) {
         return allFunctionMap.get(functionName) != null && allFunctionMap.get(functionName).executeBefore();
     }

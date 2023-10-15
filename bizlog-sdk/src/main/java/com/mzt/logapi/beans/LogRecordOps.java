@@ -7,6 +7,10 @@ import lombok.Data;
  * @author muzhantong
  * create on 2020/4/29 3:27 下午
  */
+/**
+ * @Author: qjj
+ * @Description: 日志记录模板字段
+ */
 @Data
 @Builder
 public class LogRecordOps {

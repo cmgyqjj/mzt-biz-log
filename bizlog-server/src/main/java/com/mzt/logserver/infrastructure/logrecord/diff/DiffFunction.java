@@ -14,6 +14,10 @@ public class DiffFunction {
         return o1.toString().concat("###").concat(o2.toString());
     }
 
+    /**
+     * @Author: qjj
+     * @Description: 这个测试案例的作用是用来测试如何在spel表达式中调用自定义的方法
+     */
     public static void main(String[] args) throws NoSuchMethodException {
         ExpressionParser parser = new SpelExpressionParser();
         StandardEvaluationContext context = new StandardEvaluationContext();
