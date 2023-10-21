@@ -27,12 +27,14 @@ public class LogRecordOperationSource {
 
     public Collection<LogRecordOps> computeLogRecordOperations(Method method, Class<?> targetClass) {
         // Don't allow no-public methods as required.
+//        先判断一下权限是不是公开的，不公开的不能方法不能访问
         if (!Modifier.isPublic(method.getModifiers())) {
             return Collections.emptyList();
         }
 
         // The method may be on an interface, but we need attributes from the target class.
         // If the target class is null, the method will be unchanged.
+//
         Method specificMethod = ClassUtils.getMostSpecificMethod(method, targetClass);
         // If we are dealing with method with generic parameters, find the original method.
         specificMethod = BridgeMethodResolver.findBridgedMethod(specificMethod);

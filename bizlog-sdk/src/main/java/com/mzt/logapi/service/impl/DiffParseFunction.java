@@ -34,6 +34,15 @@ public class DiffParseFunction {
     }
 
     //@Override
+    /**
+    *@Param:
+    *@return:
+    *@Author: qjj
+    *@describe: 比较两个对象的区别
+     * 如果有一个为空则初始化，然后正常对比
+     * 如果类型不同直接返回
+     * 如果类型相同，开始比较，这里使用objectDifferBuilder 不知道是为啥
+    */
     public String diff(Object source, Object target) {
         if (source == null && target == null) {
             return "";

@@ -16,7 +16,12 @@ public class LogFunctionParser {
 
     private IFunctionService functionService;
 
-
+    /**
+    *@Param: 
+    *@return: 
+    *@Author: qjj
+    *@describe: 感觉是用于在运行的时候解析函数的返回值
+    */
     public String getFunctionReturnValue(Map<String, String> beforeFunctionNameAndReturnMap, Object value, String expression, String functionName) {
         if (StringUtils.isEmpty(functionName)) {
             return value == null ? Strings.EMPTY : value.toString();

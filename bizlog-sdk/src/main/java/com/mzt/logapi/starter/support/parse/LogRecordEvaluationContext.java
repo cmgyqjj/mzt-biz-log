@@ -17,6 +17,7 @@ public class LogRecordEvaluationContext extends MethodBasedEvaluationContext {
     public LogRecordEvaluationContext(Object rootObject, Method method, Object[] arguments,
                                       ParameterNameDiscoverer parameterNameDiscoverer, Object ret, String errorMsg) {
         super(rootObject, method, arguments, parameterNameDiscoverer);
+//        获取线程变量和全局变量
         Map<String, Object> variables = LogRecordContext.getVariables();
         Map<String, Object> globalVariable = LogRecordContext.getGlobalVariableMap();
         if (variables != null) {

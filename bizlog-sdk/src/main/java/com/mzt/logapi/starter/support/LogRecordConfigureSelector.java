@@ -15,6 +15,14 @@ import com.mzt.logapi.starter.configuration.LogRecordProxyAutoConfiguration;
  */
 public class LogRecordConfigureSelector extends AdviceModeImportSelector<EnableLogRecord> {
 
+    
+    
+    /**
+    *@Param: 
+    *@return: 
+    *@Author: qjj
+    *@describe: 判断使用的什么策略去插入注解
+    */
     @Override
     @Nullable
     public String[] selectImports(AdviceMode adviceMode) {

@@ -23,6 +23,7 @@ public class LogRecordValueParser implements BeanFactoryAware {
 
     private static final Pattern pattern = Pattern.compile("\\{\\s*(\\w*)\\s*\\{(.*?)}}");
     public static final String COMMA = ",";
+//    自定义函数和 SpEL 解析类核型
     private final LogRecordExpressionEvaluator expressionEvaluator = new LogRecordExpressionEvaluator();
     protected BeanFactory beanFactory;
     protected boolean diffLog;
@@ -86,6 +87,7 @@ public class LogRecordValueParser implements BeanFactoryAware {
         }
         return expressionValues;
     }
+
 
     private String getDiffFunctionValue(EvaluationContext evaluationContext, AnnotatedElementKey annotatedElementKey, String expression) {
         String[] params = parseDiffFunction(expression);

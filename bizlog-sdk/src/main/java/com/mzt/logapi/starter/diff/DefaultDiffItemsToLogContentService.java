@@ -26,6 +26,12 @@ import java.util.*;
  * @author muzhantong
  * create on 2022/1/3 8:52 下午
  */
+/**
+*@Param: 
+*@return: 
+*@Author: qjj
+*@describe: 主要用来处理把两个类中不同的内容转化成String类型
+*/
 @Slf4j
 @Setter
 @Getter
@@ -39,19 +45,39 @@ public class DefaultDiffItemsToLogContentService implements IDiffItemsToLogConte
         this.logRecordProperties = logRecordProperties;
     }
 
+    /**
+    *@Param: 
+    *@return: 
+    *@Author: qjj
+    *@describe: 主要调用方法，用于从两个类中获取不同的内容，并且将其生成一段日志
+     *
+    */
+//    TODO 等晚点调用一下看看具体流程，这是一个重要的点之一
     @Override
     public String toLogContent(DiffNode diffNode, final Object sourceObject, final Object targetObject) {
+//        判断一下根节点有没有改变
         if (!diffNode.hasChanges()) {
             return "";
         }
+//        获取注解对象，方便拿到注解里面的字段信息
         DiffLogAllFields annotation = sourceObject.getClass().getAnnotation(DiffLogAllFields.class);
+//        生成一个StringBuilder来存储将要生成的日志
         StringBuilder stringBuilder = new StringBuilder();
+//        用Set来装全部的节点
         Set<DiffNode> set = new HashSet<>();
+//        从根节点开始遍历全部缺点，将不同的内容生成日志
         diffNode.visit((node, visit) -> generateAllFieldLog(sourceObject, targetObject, stringBuilder, node, annotation, set));
+//        清空set，然后将生成的日志返回
         set.clear();
         return stringBuilder.toString().replaceAll(logRecordProperties.getFieldSeparator().concat("$"), "");
     }
-
+    
+    /**
+    *@Param: 
+    *@return: 
+    *@Author: qjj
+    *@describe: 具体生成两个类不同内容日志的方法
+    */
     private void generateAllFieldLog(Object sourceObject, Object targetObject, StringBuilder stringBuilder, DiffNode node,
                                      DiffLogAllFields annotation, Set<DiffNode> set) {
         if (node.isRootNode() || node.getValueTypeInfo() != null || set.contains(node)) {

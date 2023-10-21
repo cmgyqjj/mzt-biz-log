@@ -98,6 +98,7 @@ public class LogRecordProperties {
         }
     }
 
+//    使用模版的配套方法
     public String formatAdd(String fieldName, Object targetValue) {
         return addTemplate.replace(FIELD_PLACEHOLDER, fieldName)
                 .replace(TARGET_VALUE_PLACEHOLDER, String.valueOf(targetValue));

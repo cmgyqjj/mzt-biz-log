@@ -48,28 +48,46 @@ public class LogRecordInterceptor extends LogRecordValueParser implements Method
 
     private boolean joinTransaction;
 
+
     @Override
     public Object invoke(MethodInvocation invocation) throws Throwable {
         Method method = invocation.getMethod();
+//        用来执行具体的记录日志方法
         return execute(invocation, invocation.getThis(), method, invocation.getArguments());
     }
 
+
+    /**
+    *@Param:
+    *@return:
+    *@Author: qjj
+    *@describe: 具体的日志记录执行逻辑
+    */
     private Object execute(MethodInvocation invoker, Object target, Method method, Object[] args) throws Throwable {
         //代理不拦截
         if (AopUtils.isAopProxy(target)) {
             return invoker.proceed();
         }
+//        StopWatch相当于用来记录时间，可以自动记录start到stop之间经历了多久
         StopWatch stopWatch = new StopWatch(MONITOR_NAME);
         stopWatch.start(MONITOR_TASK_BEFORE_EXECUTE);
+//        加载目标类
+//        这里开始相当于加了@Aspect里面的环绕通知部分了
         Class<?> targetClass = getTargetClass(target);
         Object ret = null;
+//        执行目标类的目标方法
         MethodExecuteResult methodExecuteResult = new MethodExecuteResult(method, args, targetClass);
+//        日志使用方不需要使用到这个方法
+//        每进入一个方法初始化一个 span 放入到 stack中，方法执行完后 pop 掉这个span
         LogRecordContext.putEmptySpan();
         Collection<LogRecordOps> operations = new ArrayList<>();
         Map<String, String> functionNameAndReturnMap = new HashMap<>();
         try {
+//            完成记录日志的操作
             operations = logRecordOperationSource.computeLogRecordOperations(method, targetClass);
+//            获取其中的spEL表达式模版
             List<String> spElTemplates = getBeforeExecuteFunctionTemplate(operations);
+//            对El表达式进行解析
             functionNameAndReturnMap = processBeforeExecuteFunctionTemplate(spElTemplates, targetClass, method, args);
         } catch (Exception e) {
             log.error("log record parse before function exception", e);
@@ -78,6 +96,7 @@ public class LogRecordInterceptor extends LogRecordValueParser implements Method
         }
 
         try {
+//            设置过程，设置结果是否正确完成
             ret = invoker.proceed();
             methodExecuteResult.setResult(ret);
             methodExecuteResult.setSuccess(true);
@@ -86,9 +105,12 @@ public class LogRecordInterceptor extends LogRecordValueParser implements Method
             methodExecuteResult.setThrowable(e);
             methodExecuteResult.setErrorMsg(e.getMessage());
         }
+//        设置aop的后半部分的过程
         stopWatch.start(MONITOR_TASK_AFTER_EXECUTE);
         try {
+//            日志操作不空
             if (!CollectionUtils.isEmpty(operations)) {
+//                执行日志
                 recordExecute(methodExecuteResult, functionNameAndReturnMap, operations);
             }
         } catch (Exception t) {

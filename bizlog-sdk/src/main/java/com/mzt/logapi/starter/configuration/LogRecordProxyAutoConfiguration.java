@@ -28,6 +28,8 @@ import java.util.List;
 /**
  * @author muzhantong
  * create on 2020/6/12 10:41 上午
+ *
+ * 日志组件自动装配软件
  */
 @Configuration
 @EnableConfigurationProperties({LogRecordProperties.class})
@@ -64,6 +66,7 @@ public class LogRecordProxyAutoConfiguration implements ImportAware {
     @Bean
     @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
     public BeanFactoryLogRecordAdvisor logRecordAdvisor(LogRecordProperties logRecordProperties) {
+//        配置适配器
         BeanFactoryLogRecordAdvisor advisor =
                 new BeanFactoryLogRecordAdvisor();
         advisor.setLogRecordOperationSource(logRecordOperationSource());
